@@ -1,7 +1,7 @@
 <root>
     <BehaviorTree ID="bt_box_catch">
     <Sequence name="main">
-        <SetDetector name="set box_detector" func_name="my_dtcs.d_box"/>
+        <SetDetector name="set box_detector" func_name="my_dtcs.d_box" id="None"/>
         <Watch name="watch_box"/>
         <GetObjFront name="get_box_front"/>
         <GoToPose name="move_to_place_loc"/>
