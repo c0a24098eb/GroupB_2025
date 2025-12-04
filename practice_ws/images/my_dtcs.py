@@ -72,6 +72,27 @@ def d_coke(img):
     except TypeError:
         return None
 
+def d_box(img):
+    # 画像の読み込み
+    draw_img = img.copy() # 元データを書き換えないようにコピーを作成
+    # HSVに変換（色指定はRGBよりHSVの方が扱いやすい）
+    hsv_img = cv2.cvtColor(draw_img, cv2.COLOR_BGR2HSV)
+
+    # BGR空間での抽出範囲
+    ## コーラ缶
+    lower = np.array([13,65,130]) # 色相, 彩度, 明度 の下限
+    upper = np.array([22,200,190]) # 色相, 彩度, 明度 の上限
+
+    # 指定範囲に入る画素を抽出（白が該当部分）
+    mask = inRangeWrap(hsv_img, lower, upper)
+    
+    try:
+        x, y, s = calc_centroid(mask)
+        print(f"{s=}")
+        return x, y
+    except TypeError:
+        return None
+
 def d_circle(img):
     # 画像読み込み
     draw_img = img.copy()
