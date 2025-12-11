@@ -1,0 +1,22 @@
+<root>
+    <BehaviorTree ID="ball_carry">
+    <Sequence name="main">
+        <SetDetector name="set ball_detector" func_name="my_dtcs.d_box" id="None"/>
+        <Watch name="watch_ball"/>
+        <GetObjFront name="get_ball_front"/>
+        <GoToPose name="move_to_place_loc"/>
+        <ReachObj name="reach_ball"/>
+        <Pick name="pick"/>
+        <ObjectLocation name="object_location"/>
+        <Shift name="shigt" target="[0.175]"/>
+        <Sleep name="sleep" time="[3]"/>
+        <Fit2 name="fit2" distance="[0.175]"/>
+        <Close name="close"/>
+        <ArmHome name="home"/>
+        <SetDestination name="set_target" value =" [(5, theta, 9theta)] "/>
+        <GoToPose name="move_to_place_loc" />
+        <Sleep name="sleep" time=" [3]"/>
+        <Open name="open"/>
+    </Sequence>
+    </BehaviorTree>
+</root>
