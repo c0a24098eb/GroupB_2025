@@ -1,0 +1,42 @@
+<root>
+    <BehaviorTree ID="bt_move">
+    <Sequence name="main">
+    <!-- キューブ１の処理 -->
+        <SetDestination name="SetDestinaion" value="[(0.42172552180020784, -1.2065087645443073, -90)]"/>
+        <GoToPose name="move_to_place_loc"/>
+        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
+        <Sleep name="sleep" time="[2]"/>
+    
+    <!-- キューブ２の処理 -->
+        <SetDestination name="SetDestinaion" value="[(0.48955860954051383, -0.9496006163078761, -90)]"/>
+        <GoToPose name="move_to_place_loc"/>
+        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
+        <Sleep name="sleep" time="[2]"/>
+
+    <!-- キューブ３の処理 -->
+        <SetDestination name="SetDestinaion" value="[(-0.19595685376121874, -0.3554052861313961, 90)]"/>
+        <GoToPose name="move_to_place_loc"/>
+        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
+        <Sleep name="sleep" time="[2]"/>
+
+    <!-- キューブ４の処理 -->
+        <SetDestination name="SetDestinaion" value="[(-0.2786646657328218, 0.034581808686325655, 90)]"/>
+        <GoToPose name="move_to_place_loc"/>
+        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
+        <Sleep name="sleep" time="[2]"/>
+
+    <!-- キューブ５の処理 -->
+        <SetDestination name="SetDestinaion" value="[(-0.0716723601524154, -0.47834274056390313, 90)]"/>
+        <GoToPose name="move_to_place_loc"/>
+        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
+        <Sleep name="sleep" time="[2]"/>
+
+    <!-- キューブ６の処理 -->
+        <SetDestination name="SetDestinaion" value="[(0.9727874569968602, -0.8143939779717566, -90)]"/>
+        <GoToPose name="move_to_place_loc"/>
+        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
+        <Sleep name="sleep" time="[2]"/>
+
+    </Sequence>
+    </BehaviorTree>
+</root>
