@@ -1,0 +1,53 @@
+<root>
+  <BehaviorTree ID="test">
+    <Sequence name="pyramid_sequence">
+
+      <!--  (共通) 検出器セット  -->
+      <SetDetector name="set_box_detector" func_name="my_dtcs.d_box" id="None"/>
+
+      <!-- ===================================================== -->
+      <!-- 1段目 真ん中 -->
+      <!-- ===================================================== -->
+      <Sequence name="box1">
+        <!-- 検出 -->
+        <Watch name="watch_box"/>
+        <!-- 移動先を對象物手前に決定 -->
+        <GetObjFront name="get_box_front"/>
+        <!-- 決定した座標に移動する -->
+        <GoToPose name="move_to_place_loc"/>
+        <!-- 對象物に距離を縮める -->
+        <ReachObj name="reach_box"/>
+        <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+        <ArmAngle name="arm_angle" j1="[0]" j2="[101]" j3="[60]" j4="[0]" j5="[-55]" j6="[0]"/>
+        <!-- 對象物との位置・距離を表示 -->
+        <ObjectLocation name="object_location"/>
+        <!-- 向きを調整 target="距離" -->
+        <Shift name="shift" target="[0.175]"/>
+        <!-- 3秒待機 time="時間" -->
+        <Sleep name="sleep" time="[3]"/>
+        <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
+        <Fit2 name="fit2" distance="[0.175]"/>
+        <!-- グリッパーを閉じる -->
+        <Close name="close"/>
+        <!-- アームをホームポジションに戻す -->
+        <ArmHome name="home"/>
+        <!-- 移動先を設定 value="(x, y, theta)" -->
+        <SetDestination name="set_target" value ="[(-1.3137625879444004,-0.18240017368736822,-178.01954842637696)]"/>
+        <!-- 移動先に移動 -->
+        <GoToPose name="move_to_place_loc" />
+        <!-- 3秒待機 time="時間" -->
+        <Sleep name="sleep" time="[3]"/>
+        <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+        <ArmAngle name="arm_angle" j1="[0]" j2="[101]" j3="[60]" j4="[0]" j5="[-55]" j6="[0]"/>
+        <!-- 3秒待機 time="時間" -->
+        <Sleep name="sleep" time="[3]"/>
+        <!-- グリッパーを開く -->
+        <Open name="open"/>
+        <!-- 3秒待機 time="時間" -->
+        <Sleep name="sleep" time="[3]"/>
+        <!-- アームをホームポジションに戻す -->
+        <ArmHome name="home"/>
+      </Sequence>
+    </Sequence>
+  </BehaviorTree>
+</root>
