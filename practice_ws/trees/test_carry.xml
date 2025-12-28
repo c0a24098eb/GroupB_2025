@@ -1,5 +1,5 @@
 <root>
-  <BehaviorTree ID="test_do">
+  <BehaviorTree ID="test">
     <Sequence name="pyramid_sequence">
 
       <!--  (共通) 検出器セット  -->
