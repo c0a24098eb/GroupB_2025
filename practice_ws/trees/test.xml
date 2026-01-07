@@ -1,0 +1,11 @@
+<root>
+    <BehaviorTree ID="test">
+    <Sequence name="main">
+        <!-- サンプルの移動シーケンス：必要に応じて座標を編集してください -->
+        <SetDestination name="set_destination" value="[(0.0, 0.0, 0)]"/>
+        <GoToPose name="move_to_target"/>
+        <!-- 必要な処理をここに追加 -->
+        <Sleep name="sleep" time="[1]"/>
+    </Sequence>
+    </BehaviorTree>
+</root>
