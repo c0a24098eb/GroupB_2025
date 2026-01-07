@@ -52,7 +52,7 @@
             <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
             <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
             <!-- 位置調整 -->
-            <Walk name="stop" distance="[0.3]"/>
+            <Walk name="stop" distance="[0.5]"/>
             <!-- グリッパーを開く -->
             <Open name="open"/>
             <!-- アームをホームポジションに戻す -->
@@ -61,9 +61,14 @@
             <Sleep name="sleep" time="[2]"/>
         </Sequence>
 
+
+
+
+
+
     <!-- キューブ２の処理 -->
         <Sequence name="cube_2_sequence">
-            <SetDestination name="SetDestinaion" value="[(1.5978524337625648, -1.7170857985598866, -48)]"/>
+            <SetDestination name="SetDestinaion" value="[(1.4360090508608006,-2.4084061413576856,5)]"/>
             <GoToPose name="move_to_place_loc"/>
             <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
 
@@ -71,9 +76,11 @@
             <!-- 検出 -->
             <Watch name="watch_box"/>
             <!-- 移動先を對象物手前に決定 -->
-            <!-- <GetObjFront name="get_box_front"/> -->
+            <GetObjFront name="get_box_front"/>
             <!-- 決定した座標に移動する -->
             <!-- <GoToPose name="move_to_place_loc"/> -->
+            <!-- 検出 -->
+            <Watch name="watch_box"/>
             <!-- 對象物に距離を縮める -->
             <ReachObj name="reach_box"/>
             <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
@@ -108,7 +115,7 @@
             <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
             <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
             <!-- 位置調整 -->
-            <Walk name="stop" distance="[0.3]"/>
+            <Walk name="stop" distance="[0.5]"/>
             <!-- グリッパーを開く -->
             <Open name="open"/>
             <!-- アームをホームポジションに戻す -->
@@ -116,9 +123,14 @@
             <Sleep name="sleep" time="[2]"/>
         </Sequence>
 
+
+
+
+
+
     <!-- キューブ３の処理 -->
         <Sequence name="cube_3_sequence">
-            <SetDestination name="SetDestinaion" value="[(-0.36049077889992276, -1.5988053010940522, 170)]"/>
+            <SetDestination name="SetDestinaion" value="[(-0.40396125634691993, -1.5950734533722606, 175)]"/>
             <GoToPose name="move_to_place_loc"/>
         <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
 
@@ -128,7 +140,7 @@
             <!-- 移動先を對象物手前に決定 -->
             <GetObjFront name="get_box_front"/>
             <!-- 決定した座標に移動する -->
-            <GoToPose name="move_to_place_loc"/>
+            <!-- <GoToPose name="move_to_place_loc"/> -->
             <!-- 對象物に距離を縮める -->
             <ReachObj name="reach_box"/>
             <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
@@ -163,7 +175,7 @@
             <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
             <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
             <!-- 位置調整 -->
-            <Walk name="stop" distance="[0.3]"/>
+            <Walk name="stop" distance="[0.5]"/>
             <!-- グリッパーを開く -->
             <Open name="open"/>
             <!-- アームをホームポジションに戻す -->
@@ -171,19 +183,27 @@
             <Sleep name="sleep" time="[2]"/>
           </Sequence>
 
-    <!-- キューブ４の処理 -->
-        <Sequence name="cube_4_sequence">
-            <SetDestination name="SetDestinaion" value="[(-2.250884670147511, 0.24082129589237164, 167)]"/>
+
+
+
+
+    <!-- キューブ６の処理 -->
+        <Sequence name="cube_6_sequence">
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(1.031269833105594,0,90)]"/>
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <SetDestination name="SetDestinaion" value="[(1.031269833105594, 1.8933015488705625, 90)]"/>
             <GoToPose name="move_to_place_loc"/>
             <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
 
-            <!-- 1段目 右 -->
+            <!-- 1段目 真ん中 -->
             <!-- 検出 -->
             <Watch name="watch_box"/>
             <!-- 移動先を對象物手前に決定 -->
             <GetObjFront name="get_box_front"/>
             <!-- 決定した座標に移動する -->
-            <GoToPose name="move_to_place_loc"/>
+            <!-- <GoToPose name="move_to_place_loc"/> -->
             <!-- 對象物に距離を縮める -->
             <ReachObj name="reach_box"/>
             <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
@@ -197,7 +217,7 @@
             <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
             <Fit2 name="fit2" distance="[0.175]"/>
             <!-- グリッパーを閉じる -->
-            <Close name="close"/>
+            <!-- <Close name="close"/> -->
             <!-- アームをホームポジションに戻す -->
             <ArmHome name="home"/>
             <!-- 移動先を設定 value="(x, y, theta)" -->
@@ -218,20 +238,25 @@
             <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
             <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
             <!-- 位置調整 -->
-            <Walk name="stop" distance="[0.3]"/>
+            <Walk name="stop" distance="[0.5]"/>
             <!-- グリッパーを開く -->
-            <Open name="open"/>
+            <!-- <Open name="open"/> -->
             <!-- アームをホームポジションに戻す -->
             <ArmHome name="home"/>
             <Sleep name="sleep" time="[2]"/>
         </Sequence>
 
 
+
+
+
+
     <!-- キューブ５の処理 -->
     <Sequence name="cube_5_sequence">
-            <SetDestination name="SetDestinaion" value="[(1.0552664023547718, 0.5424923451744617, -18)]"/>
+            <SetDestination name="SetDestinaion" value="[(1.031269833105594,0,0)]"/>
             <GoToPose name="move_to_place_loc"/>
             <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
+
 
             <!-- 1段目 左 -->
             <!-- 検出 -->
@@ -241,7 +266,7 @@
             <!-- 移動先を對象物手前に決定 -->
             <GetObjFront name="get_box_front"/>
             <!-- 決定した座標に移動する -->
-            <GoToPose name="move_to_place_loc"/>
+            <!-- <GoToPose name="move_to_place_loc"/> -->
             <!-- 0.5秒待機 time="時間" -->
             <Sleep name="sleep" time="[0.5]"/>
             <!-- 對象物に距離を縮める -->
@@ -286,19 +311,28 @@
             <Sleep name="sleep" time="[2]"/>
         </Sequence>
 
-    <!-- キューブ６の処理 -->
-        <Sequence name="cube_6_sequence">
-            <SetDestination name="SetDestinaion" value="[(0.9344458477709525, 2.0102457971274634, 71)]"/>
+
+
+
+
+
+
+    
+
+
+        <!-- キューブ４の処理 -->
+        <Sequence name="cube_4_sequence">
+            <SetDestination name="SetDestinaion" value="[(-2.670917777639483, -0.10515108843094967, 100)]"/>
             <GoToPose name="move_to_place_loc"/>
             <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
 
-            <!-- 1段目 真ん中 -->
+            <!-- 1段目 右 -->
             <!-- 検出 -->
             <Watch name="watch_box"/>
             <!-- 移動先を對象物手前に決定 -->
             <GetObjFront name="get_box_front"/>
             <!-- 決定した座標に移動する -->
-            <GoToPose name="move_to_place_loc"/>
+            <!-- <GoToPose name="move_to_place_loc"/> -->
             <!-- 對象物に距離を縮める -->
             <ReachObj name="reach_box"/>
             <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
@@ -333,13 +367,16 @@
             <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
             <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
             <!-- 位置調整 -->
-            <Walk name="stop" distance="[0.3]"/>
+            <Walk name="stop" distance="[0.5]"/>
             <!-- グリッパーを開く -->
             <Open name="open"/>
             <!-- アームをホームポジションに戻す -->
             <ArmHome name="home"/>
             <Sleep name="sleep" time="[2]"/>
         </Sequence>
+
+
+
     </Sequence>
     </BehaviorTree>
 </root>
