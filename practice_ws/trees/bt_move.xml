@@ -1,41 +1,382 @@
 <root>
     <BehaviorTree ID="bt_move">
     <Sequence name="main">
+
+    <!--  (共通) 検出器セット  -->
+    <SetDetector name="set_box_detector" func_name="my_dtcs.d_box" id="None"/>
+
     <!-- キューブ１の処理 -->
-        <SetDestination name="SetDestinaion" value="[(0.36147564652940023, -0.48199227599736616, 0)]"/>
-        <GoToPose name="move_to_place_loc"/>
-        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
-        <Sleep name="sleep" time="[2]"/>
+        <Sequence name="cube_1_sequence">
+            <SetDestination name="SetDestinaion" value="[(0.36147564652940023, -0.48199227599736616, -90)]"/>
+            <GoToPose name="move_to_place_loc"/>
+            <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
+
+            <!-- 1段目 真ん中 -->
+            <!-- 検出 -->
+            <Watch name="watch_box"/>
+            <!-- 移動先を對象物手前に決定 -->
+            <!-- <GetObjFront name="get_box_front"/> -->
+            <!-- 決定した座標に移動する -->
+            <!-- <GoToPose name="move_to_place_loc"/> -->
+            <!-- 對象物に距離を縮める -->
+            <ReachObj name="reach_box"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <Pick name="pick_box"/>
+            <!-- 對象物との位置・距離を表示 -->
+            <ObjectLocation name="object_location"/>
+            <!-- 向きを調整 target="距離" -->
+            <Shift name="shift" target="[0.175]"/>
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
+            <Fit2 name="fit2" distance="[0.175]"/>
+            <!-- グリッパーを閉じる -->
+            <Close name="close"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,0,90)]"/>
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,2.4049201233882993,90)]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目真ん中 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 一段目右 "[(-1.2627347989339648,0.05,-180)]" -->
+            <!-- 一段目左 "[(-1.2627347989339648,-0.05,-180)]" -->
+            <!-- 二段目右 "[(-1.2627347989339648,0.025,-180)]" -->
+            <!-- 二段目左 "[(-1.2627347989339648,-0.025,-180)]" -->
+            <!-- 三段目中央 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <ArmAngle name="arm_angle" j1="[0]" j2="[90]" j3="[45]" j4="[0]" j5="[-45]" j6="[0]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
+            <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
+            <!-- 位置調整 -->
+            <Walk name="stop" distance="[0.3]"/>
+            <!-- グリッパーを開く -->
+            <Open name="open"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+
+            <Sleep name="sleep" time="[2]"/>
+        </Sequence>
 
     <!-- キューブ２の処理 -->
-        <SetDestination name="SetDestinaion" value="[(1.5978524337625648, -1.7170857985598866, 0)]"/>
-        <GoToPose name="move_to_place_loc"/>
-        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
-        <Sleep name="sleep" time="[2]"/>
+        <Sequence name="cube_2_sequence">
+            <SetDestination name="SetDestinaion" value="[(1.5978524337625648, -1.7170857985598866, -48)]"/>
+            <GoToPose name="move_to_place_loc"/>
+            <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
+
+            <!-- 1段目 右 -->
+            <!-- 検出 -->
+            <Watch name="watch_box"/>
+            <!-- 移動先を對象物手前に決定 -->
+            <!-- <GetObjFront name="get_box_front"/> -->
+            <!-- 決定した座標に移動する -->
+            <!-- <GoToPose name="move_to_place_loc"/> -->
+            <!-- 對象物に距離を縮める -->
+            <ReachObj name="reach_box"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <Pick name="pick_box"/>
+            <!-- 對象物との位置・距離を表示 -->
+            <ObjectLocation name="object_location"/>
+            <!-- 向きを調整 target="距離" -->
+            <Shift name="shift" target="[0.175]"/>
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
+            <Fit2 name="fit2" distance="[0.175]"/>
+            <!-- グリッパーを閉じる -->
+            <Close name="close"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,0,90)]"/>
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.18207209680897414,2.4049201233882993,90)]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目真ん中 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 一段目右 "[(-1.2627347989339648,0.05,-180)]" -->
+            <!-- 一段目左 "[(-1.2627347989339648,-0.05,-180)]" -->
+            <!-- 二段目右 "[(-1.2627347989339648,0.025,-180)]" -->
+            <!-- 二段目左 "[(-1.2627347989339648,-0.025,-180)]" -->
+            <!-- 三段目中央 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <ArmAngle name="arm_angle" j1="[0]" j2="[90]" j3="[45]" j4="[0]" j5="[-45]" j6="[0]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
+            <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
+            <!-- 位置調整 -->
+            <Walk name="stop" distance="[0.3]"/>
+            <!-- グリッパーを開く -->
+            <Open name="open"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <Sleep name="sleep" time="[2]"/>
+        </Sequence>
 
     <!-- キューブ３の処理 -->
-        <SetDestination name="SetDestinaion" value="[(-0.36049077889992276, -1.5988053010940522, 0)]"/>
-        <GoToPose name="move_to_place_loc"/>
-        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
-        <Sleep name="sleep" time="[2]"/>
+        <Sequence name="cube_3_sequence">
+            <SetDestination name="SetDestinaion" value="[(-0.36049077889992276, -1.5988053010940522, 164)]"/>
+            <GoToPose name="move_to_place_loc"/>
+        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
+
+        <!-- 1段目 左 -->
+            <!-- 検出 -->
+            <Watch name="watch_box"/>
+            <!-- 移動先を對象物手前に決定 -->
+            <!-- <GetObjFront name="get_box_front"/> -->
+            <!-- 決定した座標に移動する -->
+            <!-- <GoToPose name="move_to_place_loc"/> -->
+            <!-- 對象物に距離を縮める -->
+            <ReachObj name="reach_box"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <Pick name="pick_box"/>
+            <!-- 對象物との位置・距離を表示 -->
+            <ObjectLocation name="object_location"/>
+            <!-- 向きを調整 target="距離" -->
+            <Shift name="shift" target="[0.175]"/>
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
+            <Fit2 name="fit2" distance="[0.175]"/>
+            <!-- グリッパーを閉じる -->
+            <Close name="close"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,0,90)]"/>
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.08207209680897414,2.4049201233882993,90)]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目真ん中 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 一段目右 "[(-1.2627347989339648,0.05,-180)]" -->
+            <!-- 一段目左 "[(-1.2627347989339648,-0.05,-180)]" -->
+            <!-- 二段目右 "[(-1.2627347989339648,0.025,-180)]" -->
+            <!-- 二段目左 "[(-1.2627347989339648,-0.025,-180)]" -->
+            <!-- 三段目中央 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <ArmAngle name="arm_angle" j1="[0]" j2="[90]" j3="[45]" j4="[0]" j5="[-45]" j6="[0]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
+            <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
+            <!-- 位置調整 -->
+            <Walk name="stop" distance="[0.3]"/>
+            <!-- グリッパーを開く -->
+            <Open name="open"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <Sleep name="sleep" time="[2]"/>
+            </Sequence>
 
     <!-- キューブ４の処理 -->
-        <SetDestination name="SetDestinaion" value="[(-2.250884670147511, 0.24082129589237164, 0)]"/>
-        <GoToPose name="move_to_place_loc"/>
-        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
-        <Sleep name="sleep" time="[2]"/>
+        <Sequence name="cube_4_sequence">
+            <SetDestination name="SetDestinaion" value="[(-2.250884670147511, 0.24082129589237164, 167)]"/>
+            <GoToPose name="move_to_place_loc"/>
+            <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
+
+            <!-- 1段目 右 -->
+            <!-- 検出 -->
+            <Watch name="watch_box"/>
+            <!-- 移動先を對象物手前に決定 -->
+            <!-- <GetObjFront name="get_box_front"/> -->
+            <!-- 決定した座標に移動する -->
+            <!-- <GoToPose name="move_to_place_loc"/> -->
+            <!-- 對象物に距離を縮める -->
+            <ReachObj name="reach_box"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <Pick name="pick_box"/>
+            <!-- 對象物との位置・距離を表示 -->
+            <ObjectLocation name="object_location"/>
+            <!-- 向きを調整 target="距離" -->
+            <Shift name="shift" target="[0.175]"/>
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
+            <Fit2 name="fit2" distance="[0.175]"/>
+            <!-- グリッパーを閉じる -->
+            <Close name="close"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,0,90)]"/>
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.15707209680897414,2.4049201233882993,90)]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目真ん中 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 一段目右 "[(-1.2627347989339648,0.05,-180)]" -->
+            <!-- 一段目左 "[(-1.2627347989339648,-0.05,-180)]" -->
+            <!-- 二段目右 "[(-1.2627347989339648,0.025,-180)]" -->
+            <!-- 二段目左 "[(-1.2627347989339648,-0.025,-180)]" -->
+            <!-- 三段目中央 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <ArmAngle name="arm_angle" j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
+            <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
+            <!-- 位置調整 -->
+            <Walk name="stop" distance="[0.3]"/>
+            <!-- グリッパーを開く -->
+            <Open name="open"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <Sleep name="sleep" time="[2]"/>
+        </Sequence>
 
     <!-- キューブ５の処理 -->
-        <SetDestination name="SetDestinaion" value="[(1.0552664023547718, 0.5424923451744617, 0)]"/>
-        <GoToPose name="move_to_place_loc"/>
-        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
-        <Sleep name="sleep" time="[2]"/>
+        <Sequence name="cube_5_sequence">
+            <SetDestination name="SetDestinaion" value="[(1.0552664023547718, 0.5424923451744617, -18)]"/>
+            <GoToPose name="move_to_place_loc"/>
+            <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
+
+            <!-- 1段目 左 -->
+            <!-- 検出 -->
+            <Watch name="watch_box"/>
+            <!-- 移動先を對象物手前に決定 -->
+            <!-- <GetObjFront name="get_box_front"/> -->
+            <!-- 決定した座標に移動する -->
+            <!-- <GoToPose name="move_to_place_loc"/> -->
+            <!-- 對象物に距離を縮める -->
+            <ReachObj name="reach_box"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <Pick name="pick_box"/>
+            <!-- 對象物との位置・距離を表示 -->
+            <ObjectLocation name="object_location"/>
+            <!-- 向きを調整 target="距離" -->
+            <Shift name="shift" target="[0.175]"/>
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
+            <Fit2 name="fit2" distance="[0.175]"/>
+            <!-- グリッパーを閉じる -->
+            <Close name="close"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,0,90)]"/>
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.10707209680897414,2.4049201233882993,90)]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目真ん中 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 一段目右 "[(-1.2627347989339648,0.05,-180)]" -->
+            <!-- 一段目左 "[(-1.2627347989339648,-0.05,-180)]" -->
+            <!-- 二段目右 "[(-1.2627347989339648,0.025,-180)]" -->
+            <!-- 二段目左 "[(-1.2627347989339648,-0.025,-180)]" -->
+            <!-- 三段目中央 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <ArmAngle name="arm_angle" j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
+            <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
+            <!-- 位置調整 -->
+            <Walk name="stop" distance="[0.3]"/>
+            <!-- グリッパーを開く -->
+            <Open name="open"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <Sleep name="sleep" time="[2]"/>
+        </Sequence>
 
     <!-- キューブ６の処理 -->
-        <SetDestination name="SetDestinaion" value="[(0.9344458477709525, 2.0102457971274634, 0)]"/>
-        <GoToPose name="move_to_place_loc"/>
-        <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る -->
-        <Sleep name="sleep" time="[2]"/>
+        <Sequence name="cube_6_sequence">
+            <SetDestination name="SetDestinaion" value="[(0.9344458477709525, 2.0102457971274634, 71)]"/>
+            <GoToPose name="move_to_place_loc"/>
+            <!-- キューブを検出して掴み、設置するまでの動作のBTがここに入る C0A24265 -->
+
+            <!-- 1段目 真ん中 -->
+            <!-- 検出 -->
+            <Watch name="watch_box"/>
+            <!-- 移動先を對象物手前に決定 -->
+            <!-- <GetObjFront name="get_box_front"/> -->
+            <!-- 決定した座標に移動する -->
+            <!-- <GoToPose name="move_to_place_loc"/> -->
+            <!-- 對象物に距離を縮める -->
+            <ReachObj name="reach_box"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <Pick name="pick_box"/>
+            <!-- 對象物との位置・距離を表示 -->
+            <ObjectLocation name="object_location"/>
+            <!-- 向きを調整 target="距離" -->
+            <Shift name="shift" target="[0.175]"/>
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 對象物がグリッパーの中心に来るようにアームを調整 distance="距離" -->
+            <Fit2 name="fit2" distance="[0.175]"/>
+            <!-- グリッパーを閉じる -->
+            <Close name="close"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,0,90)]"/>
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- 移動先を設定 value="(x, y, theta)" -->
+            <SetDestination name="set_target" value ="[(0.13207209680897414,2.4049201233882993,90)]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目真ん中 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 一段目右 "[(-1.2627347989339648,0.05,-180)]" -->
+            <!-- 一段目左 "[(-1.2627347989339648,-0.05,-180)]" -->
+            <!-- 二段目右 "[(-1.2627347989339648,0.025,-180)]" -->
+            <!-- 二段目左 "[(-1.2627347989339648,-0.025,-180)]" -->
+            <!-- 三段目中央 "[(-1.2627347989339648,0,-180)]" -->
+            <!-- 移動先に移動 -->
+            <GoToPose name="move_to_place_loc" />
+            <!-- 3秒待機 time="時間" -->
+            <Sleep name="sleep" time="[3]"/>
+            <!-- アームを指定の角度に動かす j1="角度" j2="角度" j3="角度" j4="角度" j5="角度" j6="角度" -->
+            <ArmAngle name="arm_angle" j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]"/>
+            <!-- 以下は理論値 -->
+            <!-- 一段目 j1="[0]" j2="[90]" j3="[40]" j4="[0]" j5="[-40]" j6="[0]" -->
+            <!-- 二・三段目 j1="[0]" j2="[90]" j3="[10]" j4="[0]" j5="[-10]" j6="[0]" -->
+            <!-- 位置調整 -->
+            <Walk name="stop" distance="[0.3]"/>
+            <!-- グリッパーを開く -->
+            <Open name="open"/>
+            <!-- アームをホームポジションに戻す -->
+            <ArmHome name="home"/>
+            <Sleep name="sleep" time="[2]"/>
+        </Sequence>
     </Sequence>
     </BehaviorTree>
 </root>
